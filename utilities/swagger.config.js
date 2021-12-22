@@ -1,8 +1,7 @@
 const options = {
     swaggerDefinition: {
         info: {
-            // description: 'Cars Store API',
-            title: 'Cars Store API',
+            title: 'Hoja API',
             version: '1.0.0',
         },
         host: 'localhost:8080',
@@ -10,7 +9,6 @@ const options = {
         produces: [
             "application/json"
         ],
-        // schemes: ['https'],
         securityDefinitions: {
             Bearer: {
                 type: 'apiKey',

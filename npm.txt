@@ -8,5 +8,5 @@ npm install jsonwebtoken
 npm install mysql2
 npm install sequelize
 npm install swagger-ui-express
-npm install express-swagger-generator (alternativo)
+npm install express-swagger-generator
 npm install nodemon --save-dev
