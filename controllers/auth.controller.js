@@ -30,9 +30,9 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Not Authorized' });
         }
 
-        bcrypt.compare(req.body.email, user.password).then(function (result) {
+        bcrypt.compare(req.body.password, user.password).then(function (result) {
             if (result) {
-                utilities.generateToken({ email: req.body.email }, (token) => {
+                utilities.generateToken({ user: req.body.email }, (token) => {
                     return res.status(200).json('Bearer token: ' + token);
                 })
             } else {

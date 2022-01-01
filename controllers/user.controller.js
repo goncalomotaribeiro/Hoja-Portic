@@ -1,5 +1,6 @@
 const db = require('../models/db.js');
 const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
 const User = db.user;
 
 let jwt = require('jsonwebtoken');
@@ -7,6 +8,7 @@ let jwt = require('jsonwebtoken');
 // Create new user
 exports.create = async (req, res) => {
     try {
+        console.log(req.body);
         let user = await User.findOne({ where: { email: req.body.email } });
 
         if (user) {
@@ -36,7 +38,7 @@ exports.create = async (req, res) => {
 // Show all users
 exports.findAll = async (req, res) => {
     try {
-        let data = await User.findAll();
+        let data = await User.findAll({});
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json({ message: err.message || 'Some error occurred while retrieving users.' });

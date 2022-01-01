@@ -3,8 +3,8 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
-const host = '127.0.0.1';
+const port = process.env.PORT || 8080;
+const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
 const users = require('./routes/user.route');

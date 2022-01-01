@@ -8,7 +8,7 @@ const usersController = require('../controllers/user.controller');
  * @route GET /users
  * @group Users - : Operations about users
  * @summary Get all users
- * @returns {object} 200 - An array of Users info
+ * @returns {object} 200 - An array of users info
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
@@ -17,7 +17,7 @@ const usersController = require('../controllers/user.controller');
 /**
  * @route POST /users
  * @group Users
- * @param {User.model} user.body
+ * @param {Register.model} user.body
  * @summary Create new user
  * @returns {object} 200 - Created User
  * @returns {Error} 401 - Missing or bad authentication
@@ -32,7 +32,7 @@ router.post('/', utilities.validateToken,
     .isLength({ min: 4 }).withMessage('Must be at least 4 chars long')
     .matches(/\d/).withMessage('Must contain a number')
     .not().isIn(['123', 'password', 'god']).withMessage('Do not use a common word as the password'),
-    body('passwordConfirm').custom((value, { req }) => {
+    body('password_confirm').custom((value, { req }) => {
         if (value !== req.body.password) {
             throw new Error('Password confirmation does not match your password');
         }
@@ -42,8 +42,8 @@ router.post('/', utilities.validateToken,
     body('age').notEmpty().isNumeric().trim().escape(),
     body('weight').notEmpty().isNumeric().trim().escape().isLength({ max: 3 }).withMessage('Must be 3 chars long'),
     body('height').notEmpty().isNumeric().trim().escape().isLength({ max: 3 }).withMessage('Must be 3 chars long'),
-    body('gender').notEmpty().toBoolean().trim().isIn(['0', '1']).withMessage('Use 0 for male or 1 for female'),
-    body('is_admin').notEmpty().toBoolean().trim().isIn(['0', '1']).withMessage('Use 0 for admin or 1 for normal user'),
+    body('gender').notEmpty().isNumeric().trim().isIn(['0', '1']).withMessage('Use 0 for male or 1 for female'),
+    body('is_admin').notEmpty().isBoolean().trim(),
     (req, res) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {

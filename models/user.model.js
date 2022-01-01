@@ -5,6 +5,19 @@
  */
 
 /**
+ * @typedef Register
+ * @property {string} email.required
+ * @property {string} password.required
+ * @property {string} password_confirm.required
+ * @property {string} name.required
+ * @property {number} age.required
+ * @property {number} weight.required
+ * @property {number} height.required
+ * @property {number} gender.required
+ * @property {boolean} is_admin.required
+ */
+
+/**
  * @typedef User
  * @property {string} email.required
  * @property {string} password.required
@@ -12,7 +25,7 @@
  * @property {number} age.required
  * @property {number} weight.required
  * @property {number} height.required
- * @property {boolean} gender.required
+ * @property {number} gender.required
  * @property {string} picture
  * @property {number} points.required
  * @property {number} mets.required
@@ -22,6 +35,10 @@
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
+      id_user: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -65,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       gender: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: { msg: "gender only accepts 0-male 1-female" }
@@ -102,7 +119,17 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: "is_admin only accepts 0-admin 1-user" }
         }
-      }
+      },
+      createdAt: {
+        field: 'created_at',
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+          field: 'updated_at',
+          type: DataTypes.DATE,
+      },
+    }, {
+      freezeTableName: true,
     });
     return User;
   };
