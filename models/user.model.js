@@ -4,7 +4,6 @@
  * @property {string} password.required
  */
 
-
 /**
  * @typedef Signup
  * @property {string} email.required
@@ -52,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
       id_user: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
       },
       email: {

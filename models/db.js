@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 // db.badge_level = require('./badge_level.model.js')(sequelize, DataTypes);
 // db.challenge = require('./challenge.model.js')(sequelize, DataTypes);
 // db.challenge_type = require('./challenge_type.model.js')(sequelize, DataTypes);
+db.user_badge = require('./user_badge.model.js')(sequelize, DataTypes);
 db.user = require('./user.model.js')(sequelize, DataTypes);
 
 // db.user.belongsToMany(db.badge_leaderboard, { through: 'user_badge', foreignKey: 'id_user'});

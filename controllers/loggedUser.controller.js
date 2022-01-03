@@ -2,12 +2,14 @@ const db = require('../models/db.js');
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const User = db.user;
-let jwt = require('jsonwebtoken');
 
 // Find logged user Info
 exports.findUserInfo = async (req, res) => {
     try {
-        const user = await User.findOne({ where: { email: req.user.data.email } });
+        const user = await User.findOne({ 
+            attributes: ['email', 'name', 'date_birth', 'weight', 'height', 'gender', 'picture', 'points', 'mets', 'daily_mets'],
+            where: { email: req.user.data.email },
+         });
         if (user === null)
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         else res.status(200).json(user);

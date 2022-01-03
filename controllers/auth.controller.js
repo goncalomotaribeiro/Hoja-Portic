@@ -2,6 +2,7 @@ const utilities = require('../utilities/utilities')
 const bcrypt = require('bcrypt');
 const db = require('../models/db.js');
 const User = db.user;
+// const UserBadge = db.user_badge;
 
 // Register new user
 exports.signup = async (req, res) => {
@@ -25,6 +26,8 @@ exports.signup = async (req, res) => {
             daily_mets: 0,
             is_admin: false
         });
+
+        // await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
 
         return res.status(201).json({ message: 'User was created successfully.' });
     } catch (err) {
