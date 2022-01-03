@@ -2,7 +2,7 @@ const options = {
     swaggerDefinition: {
         info: {
             title: 'Hoja API',
-            version: '1.1',
+            version: '1.0.0',
         },
         host: 'localhost:3306',
         basePath: '/',

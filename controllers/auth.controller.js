@@ -3,26 +3,36 @@ const bcrypt = require('bcrypt');
 const db = require('../models/db.js');
 const User = db.user;
 
-// exports.register = async (req, res) => {
-//     try {
-//         let user = await User.findOne({ where: { username: req.body.username } });
+// Register new user
+exports.register = async (req, res) => {
+    try {
+        let user = await User.findOne({ where: { email: req.body.email } });
 
-//         if (user) {
-//             return res.status(400).json({ message: 'Username already exists!' });
-//         }
+        if (user) {
+            return res.status(400).json({ message: 'Email already associated with account!' });
+        }
 
-//         user = await User.create({
-//             name: req.body.name,
-//             username: req.body.username,
-//             password: bcrypt.hashSync(req.body.password, 8)
-//         });
+        user = await User.create({
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8),
+            name: req.body.name,
+            date_birth: req.body.date_birth,
+            weight: req.body.weight,
+            height: req.body.height,
+            gender: req.body.gender,
+            points: 0,
+            mets: 0,
+            daily_mets: 0,
+            is_admin: false
+        });
 
-//         return res.status(201).json({ message: 'User was created successfully.' });
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// };
+        return res.status(201).json({ message: 'User was created successfully.' });
+    } catch (err) {
+        res.status(400).json({ message: err });
+    }
+};
 
+// Login user
 exports.login = async (req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });

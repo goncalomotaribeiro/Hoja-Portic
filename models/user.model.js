@@ -5,12 +5,12 @@
  */
 
 /**
- * @typedef Register
+ * @typedef CreateUser
  * @property {string} email.required
  * @property {string} password.required
  * @property {string} password_confirm.required
  * @property {string} name.required
- * @property {number} age.required
+ * @property {string} date_birth.required
  * @property {number} weight.required
  * @property {number} height.required
  * @property {number} gender.required
@@ -18,19 +18,26 @@
  */
 
 /**
- * @typedef User
- * @property {string} email.required
+ * @typedef UpdateUser
  * @property {string} password.required
  * @property {string} name.required
- * @property {number} age.required
+ * @property {string} date_birth.required
  * @property {number} weight.required
  * @property {number} height.required
  * @property {number} gender.required
- * @property {string} picture
- * @property {number} points.required
- * @property {number} mets.required
- * @property {number} daily_mets.required
  * @property {boolean} is_admin.required
+ */
+
+/**
+ * @typedef Register
+ * @property {string} email.required
+ * @property {string} password.required
+ * @property {string} password_confirm.required
+ * @property {string} name.required
+ * @property {string} date_birth.required
+ * @property {number} weight.required
+ * @property {number} height.required
+ * @property {number} gender.required
  */
 
 module.exports = (sequelize, DataTypes) => {
@@ -60,8 +67,8 @@ module.exports = (sequelize, DataTypes) => {
           notNull: { msg: "name cannot be null!" }
         }
       },
-      age: {
-        type: DataTypes.DOUBLE,
+      date_birth: {
+        type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
           notNull: { msg: "age cannot be null!" }
@@ -117,7 +124,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         validate: {
-          notNull: { msg: "is_admin only accepts 0-admin 1-user" }
+          notNull: { msg: "is_admin only accepts true or false" }
         }
       },
       createdAt: {

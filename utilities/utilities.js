@@ -20,6 +20,7 @@ exports.validateToken = (req, res, next) => {
         if (err) {
             return res.status(403).send({ message: 'Not authorized!' });
         }
+        req.user = decoded;
         next();
     });
 };
