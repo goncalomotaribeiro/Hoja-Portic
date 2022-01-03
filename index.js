@@ -7,7 +7,7 @@ const port = process.env.PORT || 8080;
 const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
-const usersAdmin = require('./routes/userAdmin.route');
+const usersAdmin = require('./routes/usersAdmin.route');
 const loggedUser = require('./routes/loggedUser.route');
 
 // Swagger
@@ -20,7 +20,7 @@ app.use(cors());
 
 app.use('/api-docs', expressSwagger);
 app.use('/', authRoutes) //auth
-app.use('/users-admin', usersAdmin); //users admin
+app.use('/users', usersAdmin); //users admin
 app.use('/logged-user', loggedUser); //logged users
 
 app.get('*', function (req, res) {

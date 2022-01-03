@@ -4,6 +4,19 @@
  * @property {string} password.required
  */
 
+
+/**
+ * @typedef Signup
+ * @property {string} email.required
+ * @property {string} password.required
+ * @property {string} password_confirm.required
+ * @property {string} name.required
+ * @property {string} date_birth.required
+ * @property {number} weight.required
+ * @property {number} height.required
+ * @property {number} gender.required
+ */
+
 /**
  * @typedef CreateUser
  * @property {string} email.required
@@ -29,15 +42,10 @@
  */
 
 /**
- * @typedef Register
- * @property {string} email.required
+ * @typedef UpdatePassword
  * @property {string} password.required
- * @property {string} password_confirm.required
- * @property {string} name.required
- * @property {string} date_birth.required
- * @property {number} weight.required
- * @property {number} height.required
- * @property {number} gender.required
+ * @property {string} new_password.required
+ * @property {string} new_password_confirm.required
  */
 
 module.exports = (sequelize, DataTypes) => {

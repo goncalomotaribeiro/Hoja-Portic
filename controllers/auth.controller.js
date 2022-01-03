@@ -4,7 +4,7 @@ const db = require('../models/db.js');
 const User = db.user;
 
 // Register new user
-exports.register = async (req, res) => {
+exports.signup = async (req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });
 
@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
 
         bcrypt.compare(req.body.password, user.password).then(function (result) {
             if (result) {
-                utilities.generateToken({ user: req.body.email }, (token) => {
+                utilities.generateToken({ email: req.body.email }, (token) => {
                     return res.status(200).json('Bearer token: ' + token);
                 })
             } else {

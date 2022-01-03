@@ -2,20 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { validationResult, body, param, query } = require('express-validator')
 const utilities = require('../utilities/utilities');
-const usersController = require('../controllers/userAdmin.controller');
+const usersController = require('../controllers/usersAdmin.controller');
 
 /**
- * @route GET /users-admin
- * @group Users Admin - : Operations about users
+ * @route GET /users
+ * @group Users Admin - : Operations about users admin
  * @summary Get all users
  * @returns {object} 200 - An array of users info
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.get('/', utilities.validateToken, usersController.findAll);
+router.get('/', utilities.validateToken, utilities.isAdmin, usersController.findAll);
 
 /**
-* @route GET /users-admin/{userID}
+* @route GET /users/{userID}
 * @group Users Admin
 * @summary Get user by id_user
 * @param {integer} userID.path.required
@@ -25,7 +25,7 @@ router.get('/', utilities.validateToken, usersController.findAll);
 * @returns {Error} 400 - Bad request
 * @security Bearer
 */
-router.get("/:userID", utilities.validateToken,
+router.get("/:userID", utilities.validateToken, utilities.isAdmin,
     param("userID").isNumeric(),
     (req, res) => {
         const errors = validationResult(req);
@@ -37,10 +37,10 @@ router.get("/:userID", utilities.validateToken,
     });
 
 /**
- * @route POST /users-admin
+ * @route POST /users
  * @group Users Admin
  * @param {file} picture.formData
- * @param {CreateUser.model} user.body
+ * @param {CreateUser.model} user.body.required
  * @summary Create new user
  * @returns {object} 200 - Created User
  * @returns {Error} 401 - Missing or bad authentication
@@ -49,7 +49,7 @@ router.get("/:userID", utilities.validateToken,
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.post('/', utilities.validateToken,
+router.post('/', utilities.validateToken, utilities.isAdmin,
     body('email').notEmpty().escape().isEmail().withMessage('Must be email format').normalizeEmail(),
     body('password').notEmpty().escape().trim()
         .isLength({ min: 4 }).withMessage('Must be at least 4 chars long')
@@ -82,17 +82,18 @@ router.post('/', utilities.validateToken,
 );
 
 /**
- * @route PUT /users-admin/{userID}
- * @group Users
+ * @route PUT /users/{userID}
+ * @group Users Admin
+ * @summary Update User
  * @param {integer} userID.path.required
- * @param {User.model} user.body.required
+ * @param {UpdateUser.model} user.body.required
  * @returns {object} 200 - Updated User
  * @returns {Error} 401 - Missing or bad authentication
  * @returns {Error} 403 - Forbidden
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.put("/:userID", utilities.validateToken,
+router.put("/:userID", utilities.validateToken, utilities.isAdmin,
     param("userID").isNumeric(),
     body('password').notEmpty().escape().trim()
         .isLength({ min: 4 }).withMessage('Must be at least 4 chars long')
@@ -125,8 +126,9 @@ router.put("/:userID", utilities.validateToken,
 );
 
 /**
- * @route DELETE /users-admin/{userID}
+ * @route DELETE /users/{userID}
  * @group Users Admin
+ * @summary Delete User
  * @param {integer} userID.path.required
  * @returns {object} 200 - Deleted user
  * @returns {Error} 401 - Missing or bad authentication
@@ -135,7 +137,7 @@ router.put("/:userID", utilities.validateToken,
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.delete("/:userID", utilities.validateToken,
+router.delete("/:userID", utilities.validateToken, utilities.isAdmin,
     param("userID").isNumeric(),
     (req, res) => {
         const errors = validationResult(req);
