@@ -17,7 +17,6 @@ const options = {
                 description: "Bearer Token",
             }
         }
-        
     },
     basedir: __dirname,
     files: ['../routes/**/*.js', '../models/**/*.js']

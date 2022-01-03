@@ -19,8 +19,8 @@ db.sequelize = sequelize;
 // db.activity_type = require('./activity_type.model.js')(sequelize, DataTypes);
 // db.badge_leaderboard = require('./badge_leaderboard.model.js')(sequelize, DataTypes);
 // db.badge_level = require('./badge_level.model.js')(sequelize, DataTypes);
-// db.challenge = require('./challenge.model.js')(sequelize, DataTypes);
-// db.challenge_type = require('./challenge_type.model.js')(sequelize, DataTypes);
+db.challenge = require('./challenge.model.js')(sequelize, DataTypes);
+db.challenge_type = require('./challenge_type.model.js')(sequelize, DataTypes);
 db.user_badge = require('./user_badge.model.js')(sequelize, DataTypes);
 db.user = require('./user.model.js')(sequelize, DataTypes);
 
@@ -29,6 +29,9 @@ db.user = require('./user.model.js')(sequelize, DataTypes);
 
 // db.user.belongsToMany(db.badge_level, { through: 'user_badge', foreignKey: 'id_user'});
 // db.badge_level.belongsToMany(db.user, { through: 'user_badge', foreignKey: 'id_badge_level'});
+
+db.challenge_type.hasMany(db.challenge, {foreignKey: 'id_challenge_type'});
+db.challenge.belongsTo(db.challenge_type, {foreignKey: 'id_challenge_type'})
 
 db.sequelize.sync()
     .then(() => {
