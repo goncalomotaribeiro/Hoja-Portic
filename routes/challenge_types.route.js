@@ -18,7 +18,7 @@ router.get('/', utilities.validateToken, utilities.isAdmin, challengesTypesContr
 
 /**
  * @route POST /challenge-types
- * @group Challenges Admin
+ * @group Challenge Types Admin
  * @param {CreateChallengeType.model} challenge_type.body.required
  * @summary Create new challenge_type
  * @returns {object} 200 - Created challenge_type

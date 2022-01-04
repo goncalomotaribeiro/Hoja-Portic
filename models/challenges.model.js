@@ -1,10 +1,9 @@
-
 /**
  * @typedef CreateChallenge
  * @property {string} description.required
  * @property {string} to_end.required
  * @property {string} points.required
- * @property {boolean} completed.required
+ * @property {number} id_challenge_type.required
  */
 
 module.exports = (sequelize, DataTypes) => {

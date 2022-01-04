@@ -29,9 +29,9 @@ router.get('/', utilities.validateToken, utilities.isAdmin, challengesController
  */
  router.post('/', utilities.validateToken, utilities.isAdmin,
  body('description').notEmpty().escape().trim(),
- body('to_end').notEmpty().trim().isNumeric(),
+ body('to_end').notEmpty().trim(),
  body('points').notEmpty().trim().isNumeric(),
- body('points').notEmpty().trim().isNumeric(),
+ body('id_challenge_type').notEmpty().trim().isNumeric(),
  (req, res) => {
      const errors = validationResult(req);
      if (errors.isEmpty()) {
