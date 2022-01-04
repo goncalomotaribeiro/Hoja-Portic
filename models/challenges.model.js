@@ -1,3 +1,12 @@
+
+/**
+ * @typedef CreateChallenge
+ * @property {string} description.required
+ * @property {string} to_end.required
+ * @property {string} points.required
+ * @property {boolean} completed.required
+ */
+
 module.exports = (sequelize, DataTypes) => {
     const Challenge = sequelize.define("challenge", {
         id_challenge: {
@@ -26,19 +35,19 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "points cannot be null!" }
             }
         },
-        state: {
+        completed: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             validate: {
-                notNull: { msg: "state cannot be null!" }
+                notNull: { msg: "completed cannot be null!" }
             }
         },
         id_challenge_type: {
             type: DataTypes.INTEGER,
         },
         createdAt: {
-          field: 'created_at',
-          type: DataTypes.DATE,
+            field: 'created_at',
+            type: DataTypes.DATE,
         },
         updatedAt: {
             field: 'updated_at',

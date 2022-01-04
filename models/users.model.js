@@ -31,7 +31,6 @@
 
 /**
  * @typedef UpdateUser
- * @property {string} password.required
  * @property {string} name.required
  * @property {string} date_birth.required
  * @property {number} weight.required

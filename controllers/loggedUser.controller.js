@@ -33,7 +33,6 @@ exports.updatePassword = async (req, res) => {
                 res.status(401).send('Not Authorized');
             }
         });
-
     } catch (err) {
         res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
     }

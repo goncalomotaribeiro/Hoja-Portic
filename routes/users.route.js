@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { validationResult, body, param, query } = require('express-validator')
+const { validationResult, body, param } = require('express-validator')
 const utilities = require('../utilities/utilities');
-const usersController = require('../controllers/usersAdmin.controller');
+const usersController = require('../controllers/users.controller');
 
 /**
  * @route GET /users
@@ -95,16 +95,6 @@ router.post('/', utilities.validateToken, utilities.isAdmin,
  */
 router.put("/:userID", utilities.validateToken, utilities.isAdmin,
     param("userID").isNumeric(),
-    body('password').notEmpty().escape().trim()
-        .isLength({ min: 4 }).withMessage('Must be at least 4 chars long')
-        .matches(/\d/).withMessage('Must contain a number')
-        .not().isIn(['123', 'password', 'god']).withMessage('Do not use a common word as the password'),
-    body('password_confirm').custom((value, { req }) => {
-        if (value !== req.body.password) {
-            throw new Error('Password confirmation does not match your password');
-        }
-        return true;
-    }),
     body('name').notEmpty().trim().escape(),
     body('date_birth').notEmpty().trim().escape().isISO8601().toDate(),
     body('weight').notEmpty().trim().escape()

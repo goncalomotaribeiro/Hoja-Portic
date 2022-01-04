@@ -7,8 +7,10 @@ const port = process.env.PORT || 8080;
 const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
-const usersAdmin = require('./routes/usersAdmin.route');
+const users = require('./routes/users.route');
 const loggedUser = require('./routes/loggedUser.route');
+const challenges = require('./routes/challenges.route');
+const challengeTypes = require('./routes/challenge_types.route');
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
@@ -20,8 +22,10 @@ app.use(cors());
 
 app.use('/api-docs', expressSwagger);
 app.use('/', authRoutes) //auth
-app.use('/users', usersAdmin); //users admin
+app.use('/users', users); //users admin
 app.use('/logged-user', loggedUser); //logged users
+app.use('/challenges', challenges); //challenges
+app.use('/challenge-types', challengeTypes); //challenge types
 
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Route not defined!'});
