@@ -20,6 +20,7 @@ exports.create = async (req, res) => {
             points: 0,
             mets: 0,
             daily_mets: 0,
+            level: "Novato",
             is_admin: req.body.is_admin
         });
         return res.status(201).json({ message: 'User was created successfully.' });

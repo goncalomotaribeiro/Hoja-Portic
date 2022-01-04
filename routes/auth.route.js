@@ -20,7 +20,6 @@ router.route('/login').post(
         if (errors.isEmpty()) {
             controller.login(req, res);
         } else {
-
             res.status(404).json({ errors: errors.array() });
         }
     }
@@ -48,15 +47,6 @@ router.post('/signup',
         }
         return true;
     }),
-    body('name').notEmpty().trim().escape(),
-    body('date_birth').notEmpty().trim().escape().isISO8601().toDate(),
-    body('weight').notEmpty().trim().escape()
-        .isFloat({ min: 10, max: 630 }).withMessage('Must be between 10 and 630 kg')
-        .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
-    body('height').notEmpty().trim().escape()
-        .isFloat({ min: 50, max: 250 }).withMessage('Must be between 50 and 250 cm')
-        .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
-    body('gender').notEmpty().trim().isNumeric().isIn(['0', '1']).withMessage('Use 0 for male or 1 for female'),
     (req, res) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {

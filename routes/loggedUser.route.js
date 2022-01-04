@@ -17,6 +17,37 @@ const usersController = require('../controllers/loggedUser.controller');
 router.get('/user-info', utilities.validateToken, usersController.findUserInfo);
 
 /**
+ * @route PATCH /logged-user/user-info
+ * @group Logged User
+ * @param {UpdateLoggedUserInfo.model} user.body
+ * @summary Update user info
+ * @returns {object} 200 - Updated user info
+ * @returns {Error} 401 - Missing or bad authentication
+ * @returns {Error} 403 - Forbidden
+ * @returns {Error} 400 - Bad request
+ * @security Bearer
+ */
+router.patch("/user-info", utilities.validateToken,
+    body('name').notEmpty().trim().escape(),
+    body('date_birth').notEmpty().trim().escape().isISO8601().toDate(),
+    body('weight').notEmpty().trim().escape()
+        .isFloat({ min: 10, max: 630 }).withMessage('Must be between 10 and 630 kg')
+        .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
+    body('height').notEmpty().trim().escape()
+        .isFloat({ min: 50, max: 250 }).withMessage('Must be between 50 and 250 cm')
+        .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
+    body('gender').notEmpty().trim().isNumeric().isIn(['0', '1']).withMessage('Use 0 for male or 1 for female'),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            usersController.updateUserInfo(req, res);
+        } else {
+            res.status(404).json({ errors: errors.array() });
+        }
+    }
+);
+
+/**
  * @route PATCH /logged-user/password
  * @group Logged User
  * @param {UpdatePassword.model} user.body
@@ -50,14 +81,26 @@ router.patch("/password", utilities.validateToken,
 );
 
 /**
- * @route GET /logged-user/logout
+ * @route PATCH /logged-user/picture
  * @group Logged User
- * @summary User logout
- * @returns {object} 200 - Bearer Token
+ * @param {UpdatePicture.model} user.body
+ * @summary Update to new picture
+ * @returns {object} 200 - Updated picture
  * @returns {Error} 401 - Missing or bad authentication
+ * @returns {Error} 403 - Forbidden
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
- router.get('/logout', utilities.validateToken, usersController.logout);
- 
+router.patch("/picture", utilities.validateToken,
+    body("picture").notEmpty().escape().trim(),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            usersController.updatePicture(req, res);
+        } else {
+            res.status(404).json({ errors: errors.array() });
+        }
+    }
+);
+
 module.exports = router;

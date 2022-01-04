@@ -6,7 +6,7 @@ const challengesTypesController = require('../controllers/challenge_types.contro
 
 /**
 * @route GET /challenge-types
-* @group Challenge Types Admin - : Operations for challenge_types
+* @group Challenge Types Admin - : Operations for challenge_types admin
 * @summary Get all challenge_types
 * @returns {object} 200 - An array of challenge_types info
 * @returns {Error} 401 - Missing or bad authentication

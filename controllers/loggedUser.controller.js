@@ -18,6 +18,20 @@ exports.findUserInfo = async (req, res) => {
     }
 };
 
+// Update logged user info
+exports.updateUserInfo = async (req, res) => {
+    try {
+        const user = await User.findOne({ where: { email: req.user.data.email } });
+        if (user === null) {
+            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+        }
+        User.update(req.body, { where: { id_user: user.id_user } });
+        res.status(200).json({ message: `User id_user = ${user.id_user} was updated successfully.` });
+    } catch (err) {
+        res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
+    }
+};
+
 // Update logged user password
 exports.updatePassword = async (req, res) => {
     try {
@@ -38,12 +52,16 @@ exports.updatePassword = async (req, res) => {
     }
 };
 
-// Logout user
-exports.logout = async (req, res) => {
+// Update logged user info
+exports.updatePicture = async (req, res) => {
     try {
-        req.headers.authorization = '';
-        res.status(200).json({ message: `User logout was successfully.` });
+        const user = await User.findOne({ where: { email: req.user.data.email } });
+        if (user === null) {
+            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+        }
+        User.update(req.body, { where: { id_user: user.id_user } });
+        res.status(200).json({ message: `User id_user = ${user.id_user} picture was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
     }
 };

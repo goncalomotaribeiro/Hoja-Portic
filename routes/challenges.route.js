@@ -6,7 +6,7 @@ const challengesController = require('../controllers/challenges.controller');
 
 /**
 * @route GET /challenges
-* @group Challenges Admin - : Operations for challenges
+* @group Challenges Admin - : Operations for challenges admin
 * @summary Get all challenges
 * @returns {object} 200 - An array of challenges info
 * @returns {Error} 401 - Missing or bad authentication

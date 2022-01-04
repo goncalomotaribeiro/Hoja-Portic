@@ -2,7 +2,7 @@ const utilities = require('../utilities/utilities')
 const bcrypt = require('bcrypt');
 const db = require('../models/db.js');
 const User = db.user;
-// const UserBadge = db.user_badge;
+const UserBadge = db.user_badge;
 
 // Register new user
 exports.signup = async (req, res) => {
@@ -16,18 +16,19 @@ exports.signup = async (req, res) => {
         user = await User.create({
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            name: req.body.name,
-            date_birth: req.body.date_birth,
-            weight: req.body.weight,
-            height: req.body.height,
-            gender: req.body.gender,
+            name: '',
+            date_birth: '',
+            weight: 0,
+            height: 0,
+            gender: 0,
             points: 0,
             mets: 0,
             daily_mets: 0,
+            level: "Novato",
             is_admin: false
         });
 
-        // await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
+        await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
 
         return res.status(201).json({ message: 'User was created successfully.' });
     } catch (err) {

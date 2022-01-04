@@ -17,18 +17,20 @@ exports.validateToken = (req, res, next) => {
         return res.status(401).send({ message: 'Token not provided!' });
     }
     // verify request token given the JWT secret key
-    jwt.verify(token.replace('Bearer ', ''), process.env.SECRET, (err, decoded) => {
+    jwt.verify(token.replace('Bearer ', ''), process.env.SECRET, async (err, decoded) => {
         if (err) {
             return res.status(403).send({ message: 'Not authorized!' });
         }
         req.user = decoded
-        const user = User.findOne({ where: { email: req.user.data.email } });
+        
+        const user = await User.findOne({ where: { email: req.user.data.email } });
         if(!user){
             return res.status(403).send({ message: 'Not authorized!' });
         }
         next();
     });
 };
+
 
 exports.isAdmin = async (req, res, next) => {
     try {

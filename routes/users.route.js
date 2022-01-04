@@ -82,7 +82,7 @@ router.post('/', utilities.validateToken, utilities.isAdmin,
 );
 
 /**
- * @route PUT /users/{userID}
+ * @route PATCH /users/{userID}
  * @group Users Admin
  * @summary Update User
  * @param {integer} userID.path.required
@@ -93,7 +93,7 @@ router.post('/', utilities.validateToken, utilities.isAdmin,
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.put("/:userID", utilities.validateToken, utilities.isAdmin,
+router.patch("/:userID", utilities.validateToken, utilities.isAdmin,
     param("userID").isNumeric(),
     body('name').notEmpty().trim().escape(),
     body('date_birth').notEmpty().trim().escape().isISO8601().toDate(),
