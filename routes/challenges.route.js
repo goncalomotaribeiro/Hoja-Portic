@@ -10,7 +10,6 @@ const challengesController = require('../controllers/challenges.controller');
 * @summary Get all challenges
 * @returns {object} 200 - An array of challenges info
 * @returns {Error} 401 - Missing or bad authentication
-* @returns {Error} 404 - Not found challenge
 * @returns {Error} 400 - Bad request
 * @security Bearer
 */

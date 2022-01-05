@@ -10,11 +10,43 @@ const usersController = require('../controllers/loggedUser.controller');
 * @summary Get logged user info
 * @returns {object} 200 - User info
 * @returns {Error} 401 - Missing or bad authentication
-* @returns {Error} 404 - Not found user
 * @returns {Error} 400 - Bad request
 * @security Bearer
 */
 router.get('/user-info', utilities.validateToken, usersController.findUserInfo);
+
+/**
+* @route GET /logged-user/badges-level
+* @group Logged User
+* @summary Get logged user badges_level
+* @returns {object} 200 - User badges_level
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/badges-level', utilities.validateToken, usersController.findUserBadgesLevel);
+
+/**
+* @route GET /logged-user/badges-leaderboard
+* @group Logged User
+* @summary Get logged user badges_leaderboard
+* @returns {object} 200 - User badges_leaderboard
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/badges-leaderboard', utilities.validateToken, usersController.findUserBadgesLeaderboard);
+
+/**
+* @route GET /logged-user/challenges
+* @group Logged User
+* @summary Get logged user not completed challenges
+* @returns {object} 200 - User challenges
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/challenges', utilities.validateToken, usersController.findUserChallenges);
 
 /**
  * @route PATCH /logged-user/user-info

@@ -34,13 +34,6 @@ module.exports = (sequelize, DataTypes) => {
                 notNull: { msg: "points cannot be null!" }
             }
         },
-        completed: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            validate: {
-                notNull: { msg: "completed cannot be null!" }
-            }
-        },
         id_challenge_type: {
             type: DataTypes.INTEGER,
         },

@@ -10,7 +10,6 @@ const challengesTypesController = require('../controllers/challenge_types.contro
 * @summary Get all challenge_types
 * @returns {object} 200 - An array of challenge_types info
 * @returns {Error} 401 - Missing or bad authentication
-* @returns {Error} 404 - Not found challenge_types
 * @returns {Error} 400 - Bad request
 * @security Bearer
 */

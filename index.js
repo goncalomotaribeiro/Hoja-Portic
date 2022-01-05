@@ -11,6 +11,7 @@ const users = require('./routes/users.route');
 const loggedUser = require('./routes/loggedUser.route');
 const challenges = require('./routes/challenges.route');
 const challengeTypes = require('./routes/challenge_types.route');
+const badges = require('./routes/badges.route');
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
@@ -26,6 +27,7 @@ app.use('/users', users); //users admin
 app.use('/logged-user', loggedUser); //logged users
 app.use('/challenges', challenges); //challenges
 app.use('/challenge-types', challengeTypes); //challenge_types
+app.use('/badges', badges); //badges
 
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Route not defined!'});
