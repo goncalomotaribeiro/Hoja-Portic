@@ -6,7 +6,7 @@ const options = {
         },
         // host: 'https://hoja-portic.herokuapp.com:3306',
         // host: 'localhost:3306',
-        basePath: 'https://hoja-portic.herokuapp.com/',
+        basePath: '/',
         produces: [
             "application/json"
         ],
