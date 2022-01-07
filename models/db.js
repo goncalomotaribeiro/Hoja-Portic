@@ -32,9 +32,11 @@ db.challenge.belongsToMany(db.user, { through: 'user_challenge', foreignKey: 'id
 db.user.hasMany(db.user_challenge, {foreignKey: 'id_user'});
 db.user_challenge.belongsTo(db.user, {foreignKey: 'id_user'})
 
-
 db.challenge.hasMany(db.user_challenge, {foreignKey: 'id_challenge'});
 db.user_challenge.belongsTo(db.challenge, {foreignKey: 'id_challenge'})
+
+
+
 
 
 db.user.belongsToMany(db.badge_leaderboard, { through: 'user_badge', foreignKey: 'id_user'});
@@ -42,6 +44,20 @@ db.badge_leaderboard.belongsToMany(db.user, { through: 'user_badge', foreignKey:
 
 db.user.belongsToMany(db.badge_level, { through: 'user_badge', foreignKey: 'id_user'});
 db.badge_level.belongsToMany(db.user, { through: 'user_badge', foreignKey: 'id_badge_level'});
+
+
+// db.user.hasMany(db.user_badge, {foreignKey: 'id_user'});
+// db.user_badge.belongsTo(db.user, {foreignKey: 'id_user'})
+
+db.badge_leaderboard.hasMany(db.user_badge, {foreignKey: 'id_badge_board'});
+db.user_badge.belongsTo(db.badge_leaderboard, {foreignKey: 'id_badge_board'})
+
+// db.badge_level.hasMany(db.user_badge, {foreignKey: 'id_badge_level'});
+// db.user_badge.belongsTo(db.badge_level, {foreignKey: 'id_badge_level'})
+
+
+
+
 
 db.challenge_type.hasMany(db.challenge, {foreignKey: 'id_challenge_type'});
 db.challenge.belongsTo(db.challenge_type, {foreignKey: 'id_challenge_type'})

@@ -49,6 +49,17 @@ router.get('/badges-level', utilities.validateToken, usersController.findUserBad
 router.get('/badges-leaderboard', utilities.validateToken, usersController.findUserBadgesLeaderboard);
 
 /**
+* @route GET /logged-user/badges-leaderboard-best
+* @group Logged User
+* @summary Get logged user best 4 badges_leaderboard
+* @returns {object} 200 - User best 4 badges_leaderboard
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/badges-leaderboard-best', utilities.validateToken, usersController.findUserBestBadgesLeaderboard);
+
+/**
 * @route GET /logged-user/challenges
 * @group Logged User
 * @summary Get logged user not completed challenges

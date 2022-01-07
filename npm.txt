@@ -9,4 +9,5 @@ npm install mysql2
 npm install sequelize
 npm install swagger-ui-express
 npm install express-swagger-generator
+npm install --save node-cron
 npm install nodemon --save-dev
