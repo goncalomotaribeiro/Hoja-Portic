@@ -4,7 +4,7 @@ const options = {
             title: 'Hoja API',
             version: '1.0.0',
         },
-        host: 'https://hoja-portic.herokuapp.com/',
+        host: 'https://hoja-portic.herokuapp.com',
         // host: 'localhost:3306',
         basePath: '/',
         produces: [
