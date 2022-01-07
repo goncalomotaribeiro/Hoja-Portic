@@ -16,6 +16,17 @@ const usersController = require('../controllers/loggedUser.controller');
 router.get('/user-info', utilities.validateToken, usersController.findUserInfo);
 
 /**
+* @route GET /logged-user/leaderboard
+* @group Logged User
+* @summary Get logged user leaderboard
+* @returns {object} 200 - User leaderboard
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/leaderboard', utilities.validateToken, usersController.findUserLeaderBoard);
+
+/**
 * @route GET /logged-user/badges-level
 * @group Logged User
 * @summary Get logged user badges_level
@@ -49,9 +60,20 @@ router.get('/badges-leaderboard', utilities.validateToken, usersController.findU
 router.get('/challenges', utilities.validateToken, usersController.findUserChallenges);
 
 /**
+* @route GET /logged-user/challenges/completed
+* @group Logged User
+* @summary Get logged user completed challenges
+* @returns {object} 200 - User completed challenges
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/challenges/completed', utilities.validateToken, usersController.findUserChallengesCompleted);
+
+/**
  * @route PATCH /logged-user/user-info
  * @group Logged User
- * @param {UpdateLoggedUserInfo.model} user.body
+ * @param {UpdateLoggedUserInfo.model} user.body.required
  * @summary Update user info
  * @returns {object} 200 - Updated user info
  * @returns {Error} 401 - Missing or bad authentication
@@ -82,7 +104,7 @@ router.patch("/user-info", utilities.validateToken,
 /**
  * @route PATCH /logged-user/password
  * @group Logged User
- * @param {UpdatePassword.model} user.body
+ * @param {UpdatePassword.model} user.body.required
  * @summary Update to new password
  * @returns {object} 200 - Updated Password
  * @returns {Error} 401 - Missing or bad authentication
@@ -115,7 +137,7 @@ router.patch("/password", utilities.validateToken,
 /**
  * @route PATCH /logged-user/picture
  * @group Logged User
- * @param {UpdatePicture.model} user.body
+ * @param {UpdatePicture.model} user.body.required
  * @summary Update to new picture
  * @returns {object} 200 - Updated picture
  * @returns {Error} 401 - Missing or bad authentication
@@ -129,6 +151,29 @@ router.patch("/picture", utilities.validateToken,
         const errors = validationResult(req);
         if (errors.isEmpty()) {
             usersController.updatePicture(req, res);
+        } else {
+            res.status(404).json({ errors: errors.array() });
+        }
+    }
+);
+
+/**
+ * @route DELETE /logged-user/delete-account
+ * @group Logged User
+ * @summary Delete account
+ * @param {DeleteAccount.model} user.body.required
+ * @returns {object} 200 - Deleted account
+ * @returns {Error} 401 - Missing or bad authentication
+ * @returns {Error} 403 - Forbidden
+ * @returns {Error} 400 - Bad request
+ * @security Bearer
+ */
+router.delete("/delete-account", utilities.validateToken,
+    body("password").notEmpty().escape().trim(),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            usersController.deleteAccount(req, res);
         } else {
             res.status(404).json({ errors: errors.array() });
         }

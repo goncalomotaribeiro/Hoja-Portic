@@ -31,7 +31,6 @@ exports.validateToken = (req, res, next) => {
     });
 };
 
-
 exports.isAdmin = async (req, res, next) => {
     try {
         const user = await User.findOne({ where: { email: req.user.data.email } });

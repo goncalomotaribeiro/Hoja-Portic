@@ -1,6 +1,9 @@
 const db = require('../models/db.js');
 const bcrypt = require('bcrypt');
 const User = db.user;
+const UserBadge = db.user_badge;
+const UserChallenge = db.user_challenge;
+const Challenge = db.challenge;
 
 // Create new user
 exports.create = async (req, res) => {
@@ -23,6 +26,16 @@ exports.create = async (req, res) => {
             level: "Novato",
             is_admin: req.body.is_admin
         });
+
+        if (!req.body.is_admin) {
+            await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
+
+            const challenges = await Challenge.findAll({})
+            for (let i = 0; i < challenges.length; i++) {
+                const challenge = challenges[i];
+                await UserChallenge.create({ id_user: user.id_user, id_challenge: challenge.id_challenge, progress: '00:00:00', completed: 0 });
+            }
+        }
         return res.status(201).json({ message: 'User was created successfully.' });
     } catch (err) {
         res.status(400).json({ message: err });

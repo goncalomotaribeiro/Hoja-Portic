@@ -22,3 +22,14 @@ exports.findAllBadgesLeaderboard = async (req, res) => {
     }
 };
 
+// // Add badge to user
+// exports.addBadgeToUser = async (req, res) => {
+//     try {
+//         const user = await User.findByPk(req.params.userID);
+//         if (user === null)
+//             res.status(404).json({ message: `Not found user with id ${req.params.userID}.` });
+//         else res.status(200).json(user);
+//     } catch (err) {
+//         res.status(500).json({ message: err.message || `Error retrieving user with id_user ${req.params.userID}.` });
+//     }
+// };

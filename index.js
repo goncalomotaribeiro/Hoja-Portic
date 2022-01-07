@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const cron = require('node-cron');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -12,6 +13,7 @@ const loggedUser = require('./routes/loggedUser.route');
 const challenges = require('./routes/challenges.route');
 const challengeTypes = require('./routes/challenge_types.route');
 const badges = require('./routes/badges.route');
+const scheduleController = require('./controllers/schedule.controller');
 
 // Swagger
 const expressSwagger = require('express-swagger-generator')(app); 
@@ -31,6 +33,12 @@ app.use('/badges', badges); //badges
 
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Route not defined!'});
+});
+
+
+cron.schedule('0 0 * * 1', () => {
+    scheduleController.refreshMets();
+    scheduleController.refreshUserChallenges();
 });
 
 app.listen(port, host, () => {

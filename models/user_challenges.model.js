@@ -1,11 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
     const UserChallenge = sequelize.define("user_challenge", {
-        id_user_challenge: {
-            type: DataTypes.INTEGER,
-            primaryKey: true
-        },
         id_user: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false,
             validate: {
                 notNull: { msg: "progress cannot be null!" }
@@ -13,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         id_challenge: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false,
             validate: {
                 notNull: { msg: "progress cannot be null!" }

@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const db = require('../models/db.js');
 const User = db.user;
 const UserBadge = db.user_badge;
+const UserChallenge = db.user_challenge;
+const Challenge = db.challenge;
 
 // Register new user
 exports.signup = async (req, res) => {
@@ -29,6 +31,12 @@ exports.signup = async (req, res) => {
         });
 
         await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
+
+        const challenges = await Challenge.findAll({attributes: ['id_challenge']})
+        for (let i = 0; i < challenges.length; i++) {
+            const challenge = challenges[i];
+            await UserChallenge.create({ id_user: user.id_user, id_challenge: challenge.id_challenge , progress: '00:00:00', completed: 0});
+        }
 
         return res.status(201).json({ message: 'User was created successfully.' });
     } catch (err) {
