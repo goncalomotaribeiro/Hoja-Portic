@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         let data = await Challenge.findAll({
-            attributes: ['id_challenge', 'description', 'to_end', 'points', 'completed'],
+            attributes: ['id_challenge', 'description', 'to_end', 'points'],
             include: [
                 {
                     model: ChallengeType, attributes: ["id_challenge_type", "description", "color", "img_name"]
