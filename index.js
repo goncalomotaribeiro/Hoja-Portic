@@ -4,7 +4,7 @@ const cors = require('cors');
 const cron = require('node-cron');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3306;
 const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
@@ -41,7 +41,12 @@ cron.schedule('0 0 * * 1', () => {
     scheduleController.refreshUserChallenges();
 });
 
-app.listen(port, host, () => {
-    console.log(`App listen: http://${host}:${port}/`)
-    console.log(`Swagger Docs: http://${host}:${port}/api-docs`);
-});
+app.listen(port, () => {
+    console.log(`App App listen on PORT: ${port}/`)
+    console.log(`App App listen on PORT: ${port}/api-docs`);
+})
+
+// app.listen(port, host, () => {
+//     console.log(`App listen: http://${host}:${port}/`)
+//     console.log(`Swagger Docs: http://${host}:${port}/api-docs`);
+// });
