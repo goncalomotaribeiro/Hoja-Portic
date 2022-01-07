@@ -5,7 +5,7 @@ const cron = require('node-cron');
 
 const app = express();
 const port = process.env.PORT || 3306;
-const host = 'localhost';
+// const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
 const users = require('./routes/users.route');
