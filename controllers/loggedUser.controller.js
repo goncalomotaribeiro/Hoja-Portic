@@ -9,7 +9,7 @@ const UserChallenge = db.user_challenge;
 exports.findUserInfo = async (req, res) => {
     try {
         const user = await User.findOne({
-            attributes: { exclude: ['id_user', 'password', 'is_admin', 'createdAt', 'updatedAt'] },
+            attributes: { exclude: ['password', 'is_admin', 'createdAt', 'updatedAt'] },
             where: { email: req.user.data.email },
         });
         if (user === null)
