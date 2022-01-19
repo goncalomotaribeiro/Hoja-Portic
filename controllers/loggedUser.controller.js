@@ -13,7 +13,8 @@ exports.findUserInfo = async (req, res) => {
             where: { email: req.user.data.email },
             include: {
                 model: BadgeLevel,
-                attributes:  { exclude: ['id_badge_level', 'number'] },
+                attributes:  { exclude: ['id_badge_level', 'number', 'user_badge'] },
+                where: { description: user.level },
             }
         });
         if (user === null)
