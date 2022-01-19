@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
         bcrypt.compare(req.body.password, user.password).then(function (result) {
             if (result) {
                 utilities.generateToken({ email: req.body.email }, (token) => {
-                    return res.status(200).json(token);
+                    return res.status(200).send(token);
                 })
             } else {
                 res.status(401).send('Not Authorized');
