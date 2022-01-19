@@ -15,7 +15,7 @@ exports.findUserInfo = async (req, res) => {
                 model: BadgeLevel,
                 attributes:  { exclude: ['id_badge_level', 'number', 'user_badge'] },
                
-                limit: first,
+                limit: 1,
             }
         });
         if (user === null)
