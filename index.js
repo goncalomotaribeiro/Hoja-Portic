@@ -35,7 +35,6 @@ app.get('*', function (req, res) {
     res.status(404).json({ message: 'Route not defined!'});
 });
 
-
 cron.schedule('0 0 * * 1', () => {
     scheduleController.refreshMets();
     scheduleController.refreshUserChallenges();

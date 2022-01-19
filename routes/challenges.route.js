@@ -53,8 +53,8 @@ router.get('/', utilities.validateToken, utilities.isAdmin, challengesController
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
- router.delete("/:challengeID", utilities.validateToken, utilities.isAdmin,
- param("challengeID").isNumeric(),
+ router.delete('/:challengeID', utilities.validateToken, utilities.isAdmin,
+ param('challengeID').isNumeric(),
  (req, res) => {
      const errors = validationResult(req);
      if (errors.isEmpty()) {

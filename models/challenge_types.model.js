@@ -1,8 +1,8 @@
 /**
  * @typedef CreateChallengeType
- * @property {string} description.required
- * @property {string} color.required
- * @property {string} img_name.required
+ * @property {string} description
+ * @property {string} color
+ * @property {string} img_name
  */
 
 module.exports = (sequelize, DataTypes) => {
