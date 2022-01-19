@@ -18,7 +18,7 @@ router.get('/', utilities.validateToken, utilities.isAdmin, challengesTypesContr
 /**
  * @route POST /challenge-types
  * @group Challenge Types Admin
- * @param {CreateChallengeType.model} challenge_type.body.required
+ * @param {CreateChallengeType.model} challenge_type.body
  * @summary Create new challenge_type
  * @returns {object} 200 - Created challenge_type
  * @returns {Error} 401 - Missing or bad authentication
