@@ -116,9 +116,6 @@ module.exports = (sequelize, DataTypes) => {
         notNull: { msg: "gender only accepts 0-male 1-female" }
       }
     },
-    picture: {
-      type: DataTypes.BLOB,
-    },
     points: {
       type: DataTypes.DOUBLE,
       allowNull: false,
@@ -149,6 +146,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: "is_admin only accepts true or false" }
       }
+    },
+    picture: {
+      type: DataTypes.BLOB,
     },
     createdAt: {
       field: 'created_at',
