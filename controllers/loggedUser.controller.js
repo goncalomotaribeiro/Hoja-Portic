@@ -10,11 +10,7 @@ exports.findUserInfo = async (req, res) => {
     try {
         const user = await User.findOne({
             attributes: { exclude: ['password', 'is_admin', 'createdAt', 'updatedAt'] },
-            where: { email: req.user.data.email },
-            include: {
-                model: BadgeLevel,
-                attributes:  { exclude: ['id_badge_level', 'number', 'user_badge'] },
-            }
+            where: { email: req.user.data.email }
         });
         if (user === null)
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
