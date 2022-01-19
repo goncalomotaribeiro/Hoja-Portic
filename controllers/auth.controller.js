@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });
         if (!user) {
-            return res.status(401).json({ message: 'Not Authorized' });
+            res.status(401).send('Not Authorized');
         }
 
         bcrypt.compare(req.body.password, user.password).then(function (result) {
