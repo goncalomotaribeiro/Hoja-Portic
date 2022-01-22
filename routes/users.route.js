@@ -69,6 +69,7 @@ router.post('/', utilities.validateToken, utilities.isAdmin,
     body('height').notEmpty().trim().escape()
         .isFloat({ min: 50, max: 250 }).withMessage('Must be between 50 and 250 cm')
         .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
+    body('health_activity_risk').notEmpty().trim().isNumeric().isIn(['1', '2', '3']).withMessage('(1 -> low; 2 -> moderate; 3 -> high'),
     body('gender').notEmpty().trim().isNumeric().isIn(['0', '1']).withMessage('Use 0 for male or 1 for female'),
     body('is_admin').notEmpty().trim().isBoolean(),
     (req, res) => {

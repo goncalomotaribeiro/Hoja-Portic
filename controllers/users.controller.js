@@ -19,6 +19,7 @@ exports.create = async (req, res) => {
             date_birth: req.body.date_birth,
             weight: req.body.weight,
             height: req.body.height,
+            health_activity_risk: req.body.health_activity_risk,
             gender: req.body.gender,
             points: 0,
             mets: 0,
@@ -26,7 +27,7 @@ exports.create = async (req, res) => {
             level: "Novato",
             is_admin: req.body.is_admin
         });
-
+        //Creates user progress in challenges
         if (!req.body.is_admin) {
             await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
 

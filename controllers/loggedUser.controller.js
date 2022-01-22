@@ -33,7 +33,6 @@ exports.findUserLeaderBoard = async (req, res) => {
 // Find logged user badges_level
 exports.findUserBadgesLevel = async (req, res) => {
     try {
-
         const badges_level = await BadgeLevel.findAll({
             attributes: ['description', 'to_get', 'number', 'badge_name'],
             include: {

@@ -17,6 +17,7 @@
  * @property {string} date_birth.required
  * @property {number} weight.required
  * @property {number} height.required
+ * @property {number} health_activity_risk.required
  * @property {number} gender.required
  */
 
@@ -29,6 +30,7 @@
  * @property {string} date_birth.required
  * @property {number} weight.required
  * @property {number} height.required
+ * @property {number} health_activity_risk.required
  * @property {number} gender.required
  * @property {boolean} is_admin.required
  */
@@ -39,6 +41,7 @@
  * @property {string} date_birth.required
  * @property {number} weight.required
  * @property {number} height.required
+ * @property {number} health_activity_risk.required
  * @property {number} gender.required
  * @property {boolean} is_admin.required
  */
@@ -107,6 +110,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: { msg: "height cannot be null!" }
+      }
+    },
+    health_activity_risk: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "health_activity_risk cannot be null!" }
       }
     },
     gender: {
