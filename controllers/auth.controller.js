@@ -22,7 +22,7 @@ exports.signup = async (req, res) => {
             date_birth: '',
             weight: 0,
             height: 0,
-            health_activity_risk: 0,
+            health_activity_risk: 1,
             gender: 0,
             points: 0,
             mets: 0,
