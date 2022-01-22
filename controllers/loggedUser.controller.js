@@ -23,7 +23,7 @@ exports.findUserInfo = async (req, res) => {
 // Find logged user leaderboard
 exports.findUserLeaderBoard = async (req, res) => {
     try {
-        const leaderboard = await db.sequelize.query('CALL Getleaderboard ()');
+        const leaderboard = await db.sequelize.query('CALL GetleaderboardWithID ()');
         res.status(200).json(leaderboard);
     } catch (err) {
         res.status(500).json({ message: err.message || `Error retrieving leaderboard of user with email=${req.user.data.email}.` });
