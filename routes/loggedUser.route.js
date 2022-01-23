@@ -94,7 +94,7 @@ router.get('/challenges/completed', utilities.validateToken, usersController.fin
  */
 router.patch("/user-info", utilities.validateToken,
     body('name').notEmpty().trim().escape(),
-    body('date_birth').notEmpty().trim().escape().isISO8601().toDate(),
+    body('date_birth').notEmpty().trim().escape(),
     body('weight').notEmpty().trim().escape()
         .isFloat({ min: 10, max: 630 }).withMessage('Must be between 10 and 630 kg')
         .isLength({ min: 2, max: 3 }).withMessage('Must be at least 2 chars long'),
