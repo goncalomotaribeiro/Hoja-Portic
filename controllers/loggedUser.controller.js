@@ -81,12 +81,15 @@ exports.findUserBestBadgesLeaderboard = async (req, res) => {
 exports.findUserChallenges = async (req, res) => {
     try {
         const challenges = await Challenge.findAll({
-            attributes: ['description', 'to_end', 'points', 'id_challenge_type'],
+            attributes: ['description', 'to_end', 'points'],
             include: [{
                     model: UserChallenge,
                     attributes: ['progress', 'completed'],
                     where: { completed: false },
                     include: { model: User, attributes: [], where: { email: req.user.data.email } }
+                },
+                {
+                    model: ChallengeType
                 }
             ]
         });
