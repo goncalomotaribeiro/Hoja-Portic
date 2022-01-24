@@ -82,6 +82,17 @@ router.get('/challenges', utilities.validateToken, usersController.findUserChall
 router.get('/challenges/completed', utilities.validateToken, usersController.findUserChallengesCompleted);
 
 /**
+* @route GET /logged-user/notifications
+* @group Logged User
+* @summary Get logged user notifications
+* @returns {object} 200 - User notifications
+* @returns {Error} 401 - Missing or bad authentication
+* @returns {Error} 400 - Bad request
+* @security Bearer
+*/
+router.get('/notifications', utilities.validateToken, usersController.findUserNotifications);
+
+/**
  * @route PATCH /logged-user/user-info
  * @group Logged User
  * @param {UpdateLoggedUserInfo.model} user.body.required

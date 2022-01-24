@@ -25,6 +25,7 @@ db.challenge_type = require('./challenge_types.model.js')(sequelize, DataTypes);
 db.user_challenge = require('./user_challenges.model.js')(sequelize, DataTypes);
 db.user_badge = require('./user_badges.model.js')(sequelize, DataTypes);
 db.user = require('./users.model.js')(sequelize, DataTypes);
+db.notification = require('./notifications.model.js')(sequelize, DataTypes);
 
 db.user.belongsToMany(db.challenge, { through: 'user_challenge', foreignKey: 'id_user'});
 db.challenge.belongsToMany(db.user, { through: 'user_challenge', foreignKey: 'id_challenge'});
@@ -34,8 +35,6 @@ db.user_challenge.belongsTo(db.user, {foreignKey: 'id_user'})
 
 db.challenge.hasMany(db.user_challenge, {foreignKey: 'id_challenge'});
 db.user_challenge.belongsTo(db.challenge, {foreignKey: 'id_challenge'})
-
-
 
 
 
@@ -56,8 +55,8 @@ db.user_badge.belongsTo(db.badge_leaderboard, {foreignKey: 'id_badge_board'})
 // db.user_badge.belongsTo(db.badge_level, {foreignKey: 'id_badge_level'})
 
 
-
-
+db.user.hasMany(db.notification, {foreignKey: 'id_user'});
+db.notification.belongsTo(db.user, {foreignKey: 'id_user'})
 
 db.challenge_type.hasMany(db.challenge, {foreignKey: 'id_challenge_type'});
 db.challenge.belongsTo(db.challenge_type, {foreignKey: 'id_challenge_type'})

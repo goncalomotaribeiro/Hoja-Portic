@@ -13,6 +13,7 @@ const loggedUser = require('./routes/loggedUser.route');
 const challenges = require('./routes/challenges.route');
 const challengeTypes = require('./routes/challenge_types.route');
 const badges = require('./routes/badges.route');
+const notifications = require('./routes/notifications.route');
 const scheduleController = require('./controllers/schedule.controller');
 
 // Swagger
@@ -30,6 +31,7 @@ app.use('/logged-user', loggedUser); //logged users
 app.use('/challenges', challenges); //challenges
 app.use('/challenge-types', challengeTypes); //challenge_types
 app.use('/badges', badges); //badges
+app.use('/notifications', notifications); //notifications
 
 app.get('*', function (req, res) {
     res.status(404).json({ message: 'Route not defined!'});

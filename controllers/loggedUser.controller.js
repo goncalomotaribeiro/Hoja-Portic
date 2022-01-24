@@ -5,6 +5,7 @@ const BadgeLevel = db.badge_level;
 const Challenge = db.challenge;
 const UserChallenge = db.user_challenge;
 const ChallengeType = db.challenge_type;
+const Notification = db.notification;
 
 // Find logged user Info
 exports.findUserInfo = async (req, res) => {
@@ -120,6 +121,24 @@ exports.findUserChallengesCompleted = async (req, res) => {
         res.status(200).json(challenges);
     } catch (err) {
         res.status(500).json({ message: err.message || `Error retrieving completed challenges of user with email=${req.user.data.email}.` });
+    }
+};
+
+// Find logged user notifications
+exports.findUserNotifications = async (req, res) => {
+    try {
+        const notifications = await Notification.findAll({
+            attributes: ['notification_badge', 'description', 'created_at'],
+            include: {
+                model: User,
+                attributes: [],
+                where: { email: req.user.data.email },
+                
+            }
+        });
+        res.status(200).json(notifications);
+    } catch (err) {
+        res.status(500).json({ message: err.message || `Error retrieving findUserNotifications of user with email=${req.user.data.email}.` });
     }
 };
 

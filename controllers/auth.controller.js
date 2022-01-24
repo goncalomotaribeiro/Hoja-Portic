@@ -5,6 +5,7 @@ const User = db.user;
 const UserBadge = db.user_badge;
 const UserChallenge = db.user_challenge;
 const Challenge = db.challenge;
+const Notification = db.notification;
 
 // Register new user
 exports.signup = async (req, res) => {
@@ -32,6 +33,8 @@ exports.signup = async (req, res) => {
         });
 
         await UserBadge.create({ id_user: user.id_user, id_badge_level: 1 });
+
+        await Notification.create({description: "Bem-vindo!", id_user: user.id_user});
 
         const challenges = await Challenge.findAll({attributes: ['id_challenge']})
         for (let i = 0; i < challenges.length; i++) {
