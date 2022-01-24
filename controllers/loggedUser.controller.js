@@ -115,6 +115,9 @@ exports.findUserChallengesCompleted = async (req, res) => {
                 model: UserChallenge,
                 attributes: ['progress', 'completed'],
                 where: { completed: true }, include: { model: User, attributes: [], where: { email: req.user.data.email } }
+            },
+            {
+                model: ChallengeType
             }]
         });
         res.status(200).json(challenges);
