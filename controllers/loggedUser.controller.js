@@ -4,6 +4,8 @@ const User = db.user;
 const BadgeLevel = db.badge_level;
 const Challenge = db.challenge;
 const UserChallenge = db.user_challenge;
+const ChallengeType = db.challenge_type;
+
 
 // Find logged user Info
 exports.findUserInfo = async (req, res) => {
@@ -80,14 +82,14 @@ exports.findUserBestBadgesLeaderboard = async (req, res) => {
 exports.findUserChallenges = async (req, res) => {
     try {
         const challenges = await Challenge.findAll({
-            attributes: ['description', 'to_end', 'points'],
-            include: [
-                {
+            attributes: ['description', 'to_end', 'points', 'id_challenge_type'],
+            include: [{
                     model: UserChallenge,
                     attributes: ['progress', 'completed'],
                     where: { completed: false },
                     include: { model: User, attributes: [], where: { email: req.user.data.email } }
-                }]
+                }
+            ]
         });
         console.log(challenges);
         res.status(200).json(challenges);
