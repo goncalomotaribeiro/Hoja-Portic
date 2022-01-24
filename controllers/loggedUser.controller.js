@@ -4,6 +4,7 @@ const User = db.user;
 const BadgeLevel = db.badge_level;
 const Challenge = db.challenge;
 const UserChallenge = db.user_challenge;
+const ChallengeType = db.challenge_type;
 
 // Find logged user Info
 exports.findUserInfo = async (req, res) => {
@@ -87,7 +88,11 @@ exports.findUserChallenges = async (req, res) => {
                     attributes: ['progress', 'completed'],
                     where: { completed: false },
                     include: { model: User, attributes: [], where: { email: req.user.data.email } }
-                }]
+                },
+                {
+                    model: ChallengeType
+                }
+            ]
         });
         console.log(challenges);
         res.status(200).json(challenges);
