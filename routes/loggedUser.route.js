@@ -158,6 +158,29 @@ router.patch("/password", utilities.validateToken,
 );
 
 /**
+ * @route PATCH /logged-user/mets
+ * @group Logged User
+ * @param {UpdateMets.model} user.body.required
+ * @summary Update user Mets
+ * @returns {object} 200 - Updated Mets
+ * @returns {Error} 401 - Missing or bad authentication
+ * @returns {Error} 403 - Forbidden
+ * @returns {Error} 400 - Bad request
+ * @security Bearer
+ */
+ router.patch("/mets", utilities.validateToken,
+ body("mets").notEmpty().trim().isNumeric(),
+ (req, res) => {
+     const errors = validationResult(req);
+     if (errors.isEmpty()) {
+         usersController.updateMets(req, res);
+     } else {
+         res.status(404).json({ errors: errors.array() });
+     }
+ }
+);
+
+/**
  * @route PATCH /logged-user/picture
  * @group Logged User
  * @param {UpdatePicture.model} user.body.required

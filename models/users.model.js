@@ -54,6 +54,12 @@
  */
 
 /**
+ * @typedef UpdateMets
+ * @property {number} mets.required
+ */
+
+
+/**
  * @typedef UpdatePicture
  * @property {string} picture.required
  */

@@ -180,7 +180,22 @@ exports.updatePassword = async (req, res) => {
     }
 };
 
-// Update logged user info
+// Update logged user mets
+exports.updateMets = async (req, res) => {
+    try {
+        const user = await User.findOne({ where: { email: req.user.data.email } });
+        if (user === null) {
+            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+        }
+        User.update(req.body, { where: { id_user: user.id_user } });
+        res.status(200).json({ message: `User id_user = ${user.id_user} mets was updated successfully.` });
+    } catch (err) {
+        res.status(500).json({ message: `Error updating mets user with email=${req.user.data.email}` });
+    }
+};
+
+
+// Update logged picture
 exports.updatePicture = async (req, res) => {
     try {
         const user = await User.findOne({ where: { email: req.user.data.email } });
@@ -190,7 +205,7 @@ exports.updatePicture = async (req, res) => {
         User.update(req.body, { where: { id_user: user.id_user } });
         res.status(200).json({ message: `User id_user = ${user.id_user} picture was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
+        res.status(500).json({ message: `Error picture password user with email=${req.user.data.email}` });
     }
 };
 
