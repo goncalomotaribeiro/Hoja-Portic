@@ -58,6 +58,13 @@
  * @property {number} mets.required
  */
 
+/**
+ * @typedef UpdateChallengesProgress
+ * @property {string} running_time.required
+ * @property {string} still_time.required
+ * @property {string} walking_time.required
+ * @property {string} bicycle_time.required
+ */
 
 /**
  * @typedef UpdatePicture

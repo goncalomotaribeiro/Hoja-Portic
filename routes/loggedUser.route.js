@@ -181,6 +181,32 @@ router.patch("/password", utilities.validateToken,
 );
 
 /**
+ * @route PATCH /logged-user/challenges-progress
+ * @group Logged User
+ * @param {UpdateChallengesProgress.model} user.body.required
+ * @summary Update user challenges progress
+ * @returns {object} 200 - Updated challenges progress
+ * @returns {Error} 401 - Missing or bad authentication
+ * @returns {Error} 403 - Forbidden
+ * @returns {Error} 400 - Bad request
+ * @security Bearer
+ */
+ router.patch("/challenges-progress", utilities.validateToken,
+ body("running_time").notEmpty().escape().trim(),
+ body("still_time").notEmpty().escape().trim(),
+ body("walking_time").notEmpty().escape().trim(),
+ body("bicycle_time").notEmpty().escape().trim(),
+ (req, res) => {
+     const errors = validationResult(req);
+     if (errors.isEmpty()) {
+         usersController.updateChallengesProgress(req, res);
+     } else {
+         res.status(404).json({ errors: errors.array() });
+     }
+ }
+);
+
+/**
  * @route PATCH /logged-user/picture
  * @group Logged User
  * @param {UpdatePicture.model} user.body.required
