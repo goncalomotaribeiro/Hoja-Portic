@@ -5,7 +5,7 @@ const cron = require('node-cron');
 
 const app = express();
 const port = process.env.PORT || 3306;
-const host = 'localhost';
+// const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
 const users = require('./routes/users.route');
@@ -47,7 +47,7 @@ app.listen(port, () => {
     console.log(`App App listen on PORT: ${port}/api-docs`);
 })
 
-app.listen(port, host, () => {
-    console.log(`App listen: http://${host}:${port}/`)
-    console.log(`Swagger Docs: http://${host}:${port}/api-docs`);
-});
+// app.listen(port, host, () => {
+//     console.log(`App listen: http://${host}:${port}/`)
+//     console.log(`Swagger Docs: http://${host}:${port}/api-docs`);
+// });
