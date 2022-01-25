@@ -184,7 +184,7 @@ exports.updatePassword = async (req, res) => {
 exports.updateMets = async (req, res) => {
     try {
         const user = await User.findOne({ where: { email: req.user.data.email } });
-        const new_mets = parseFloat(user.mets +  req.body.mets);
+        const new_mets = parseFloat(user.mets) +  parseFloat(req.body.mets);
         if (user === null) {
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         }
