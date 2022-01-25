@@ -1,5 +1,6 @@
 const db = require('../models/db.js');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 const { Op } = require("sequelize");
 const User = db.user;
 const BadgeLevel = db.badge_level;
@@ -198,7 +199,66 @@ exports.updateMets = async (req, res) => {
 
 // Update logged user challenges progress
 exports.updateChallengesProgress = async (req, res) => {
-   
+    try {
+        const user = await User.findOne({ where: { email: req.user.data.email } });
+        if (user === null) {
+            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+        }
+
+        const old_bicycle_time = await UserChallenge.findOne({ where: { [Op.and]: [{ id_challenge: 1 }, { id_user: user.id_user }] } });
+        const old_running_time = await UserChallenge.findOne({ where: { [Op.and]: [{ id_challenge: 2 }, { id_user: user.id_user }] } });
+        const old_still_time = await UserChallenge.findOne({ where: { [Op.and]: [{ id_challenge: 3 }, { id_user: user.id_user }] } });
+        const old_walking_time = await UserChallenge.findOne({ where: { [Op.and]: [{ id_challenge: 4 }, { id_user: user.id_user }] } });
+
+        const durationsBicycle = [
+            old_bicycle_time.progress,
+            req.body.bicycle_time
+        ]
+        const totalDurationsBicycle = durationsBicycle.slice(1)
+            .reduce((prev, cur) => moment.duration(cur).add(prev),
+                moment.duration(durationsBicycle[0]))
+
+        const new_bicycle_time = (moment.utc(totalDurationsBicycle.asMilliseconds()).format("HH:mm:ss"))
+
+        const durationsRunning = [
+            old_running_time.progress,
+            req.body.running_time
+        ]
+        const totalDurationsRunning = durationsRunning.slice(1)
+            .reduce((prev, cur) => moment.duration(cur).add(prev),
+                moment.duration(durationsRunning[0]))
+
+        const new_running_time = (moment.utc(totalDurationsRunning.asMilliseconds()).format("HH:mm:ss"))
+
+        const durationsStill = [
+            old_still_time.progress,
+            req.body.still_time
+        ]
+        const totalDurationsStill = durationsStill.slice(1)
+            .reduce((prev, cur) => moment.duration(cur).add(prev),
+                moment.duration(durationsStill[0]))
+
+        const new_still_time = (moment.utc(totalDurationsStill.asMilliseconds()).format("HH:mm:ss"))
+
+        const durationsWalking = [
+            old_walking_time.progress,
+            req.body.walking_time
+        ]
+        const totalDurationsWalking = durationsWalking.slice(1)
+            .reduce((prev, cur) => moment.duration(cur).add(prev),
+                moment.duration(durationsWalking[0]))
+
+        const new_walking_time = (moment.utc(totalDurationsWalking.asMilliseconds()).format("HH:mm:ss"))
+
+        await UserChallenge.update({ progress: new_bicycle_time }, { where: { [Op.and]: [{ id_challenge: 1 }, { id_user: user.id_user }] } });
+        await UserChallenge.update({ progress: new_running_time }, { where: { [Op.and]: [{ id_challenge: 2 }, { id_user: user.id_user }] } });
+        await UserChallenge.update({ progress: new_still_time }, { where: { [Op.and]: [{ id_challenge: 3 }, { id_user: user.id_user }] } });
+        await UserChallenge.update({ progress: new_walking_time }, { where: { [Op.and]: [{ id_challenge: 4 }, { id_user: user.id_user }] } });
+
+        res.status(200).json({ message: `User id_user = ${user.id_user} challenges progress was updated successfully.` });
+    } catch (err) {
+        res.status(500).json({ message: `Error updating challenges progress user with email=${req.user.data.email}` });
+    }
 };
 
 
