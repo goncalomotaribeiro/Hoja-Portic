@@ -283,7 +283,7 @@ exports.deleteAccount = async (req, res) => {
             return res.status(404).json({ message: `Not found user with id_user=${req.user.data.email}.` });
         }
         
-        await User.destroy({ where: { id_user: user.id_user } });
+        user.destroy();
         return res.status(200).json({ message: `Deleted user with id_user=${req.user.data.email}.` });
     } catch (err) {
         res.status(500).json({ message: `Error delete user account with email=${req.user.data.email}` });
