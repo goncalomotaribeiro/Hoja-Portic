@@ -230,26 +230,14 @@ router.patch("/picture", utilities.validateToken,
 );
 
 /**
- * @route DELETE /logged-user/delete-account/{password}
+ * @route DELETE /logged-user/delete-account
  * @group Logged User
  * @summary Delete account
- * @param {string} password.path.required
  * @returns {object} 200 - Deleted account
  * @returns {Error} 401 - Missing or bad authentication
- * @returns {Error} 403 - Forbidden
  * @returns {Error} 400 - Bad request
  * @security Bearer
- */
-router.delete("/delete-account/:password", utilities.validateToken,
-    param("password").notEmpty().escape().trim(),
-    (req, res) => {
-        const errors = validationResult(req);
-        if (errors.isEmpty()) {
-            usersController.deleteAccount(req, res);
-        } else {
-            res.status(404).json({ errors: errors.array() });
-        }
-    }
-);
+*/
+router.delete("/delete-account", utilities.validateToken, usersController.deleteAccount);
 
 module.exports = router;
