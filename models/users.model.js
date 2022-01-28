@@ -71,11 +71,6 @@
  * @property {string} picture.required
  */
 
-/**
- * @typedef DeleteAccount
- * @property {string} password.required
- */
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("user", {
     id_user: {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { validationResult, body } = require('express-validator')
+const { validationResult, body, param } = require('express-validator')
 const utilities = require('../utilities/utilities');
 const usersController = require('../controllers/loggedUser.controller');
 
@@ -230,18 +230,18 @@ router.patch("/picture", utilities.validateToken,
 );
 
 /**
- * @route DELETE /logged-user/delete-account
+ * @route DELETE /logged-user/delete-account/{password}
  * @group Logged User
  * @summary Delete account
- * @param {DeleteAccount.model} user.body.required
+ * @param {string} password.path.required
  * @returns {object} 200 - Deleted account
  * @returns {Error} 401 - Missing or bad authentication
  * @returns {Error} 403 - Forbidden
  * @returns {Error} 400 - Bad request
  * @security Bearer
  */
-router.delete("/delete-account", utilities.validateToken,
-    body("password").notEmpty().escape().trim(),
+router.delete("/delete-account/:password", utilities.validateToken,
+    param("password").notEmpty().escape().trim(),
     (req, res) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
