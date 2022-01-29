@@ -16,8 +16,6 @@ sequelize.authenticate()
 const db = {};
 db.sequelize = sequelize;
 
-// db.activity = require('./activity.model.js')(sequelize, DataTypes);
-// db.activity_type = require('./activity_type.model.js')(sequelize, DataTypes);
 db.badge_leaderboard = require('./badges_leaderboard.model.js')(sequelize, DataTypes);
 db.badge_level = require('./badges_level.model.js')(sequelize, DataTypes);
 db.challenge = require('./challenges.model.js')(sequelize, DataTypes);
