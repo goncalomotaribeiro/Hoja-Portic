@@ -31,13 +31,11 @@
         createdAt: {
             field: 'created_at',
             type: DataTypes.DATE,
-        },
-        updatedAt: {
-            field: 'updated_at',
-            type: DataTypes.DATE,
-        },
+        }
     }, {
         freezeTableName: true,
+        updatedAt: false,
+
     });
     return Notification;
 };
