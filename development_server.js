@@ -42,6 +42,7 @@ cron.schedule('0 0 * * 1', () => {
     scheduleController.refreshUserChallenges();
 });
 
+
 app.listen(port, host, () => {
     console.log(`App listen: http://${host}:${port}/`)
     console.log(`Swagger Docs: http://${host}:${port}/api-docs`);
