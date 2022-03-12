@@ -5,7 +5,6 @@ const cron = require('node-cron');
 
 const app = express();
 const port = process.env.PORT || 3306;
-// const host = 'localhost';
 
 const authRoutes = require('./routes/auth.route')
 const users = require('./routes/users.route');
@@ -45,4 +44,4 @@ cron.schedule('0 0 * * 1', () => {
 app.listen(port, () => {
     console.log(`App App listen on PORT: ${port}/`)
     console.log(`App App listen on PORT: ${port}/api-docs`);
-})
+});
