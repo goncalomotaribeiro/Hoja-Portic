@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
 
         return res.status(201).json({ message: 'User was created successfully.' });
     } catch (err) {
-        res.status(400).json({ message: err });
+        return res.status(400).json({ message: err });
     }
 };
 
@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });
         if (!user) {
-            res.status(401).send('Not Authorized');
+            return res.status(401).send('Not Authorized');
         }
 
         bcrypt.compare(req.body.password, user.password).then(function (result) {
@@ -62,11 +62,11 @@ exports.login = async (req, res) => {
                     return res.status(200).send(token);
                 })
             } else {
-                res.status(401).send('Not Authorized');
+                return res.status(401).send('Not Authorized');
             }
         });
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 };

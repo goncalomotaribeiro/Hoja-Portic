@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
         });
         return res.status(201).json({ message: 'Challenge was created successfully.' });
     } catch (err) {
-        res.status(400).json({ message: err });
+        return res.status(400).json({ message: err });
     }
 };
 
@@ -29,9 +29,9 @@ exports.findAll = async (req, res) => {
                 }
             ]
         });
-        res.status(200).json(data);
+        return res.status(200).json(data);
     } catch (err) {
-        res.status(500).json({ message: err.message || 'Some error occurred while retrieving challenges.' });
+        return res.status(500).json({ message: err.message || 'Some error occurred while retrieving challenges.' });
     }
 };
 

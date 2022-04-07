@@ -13,6 +13,6 @@ exports.create = async (req, res) => {
         });
         return res.status(201).json({ message: 'Notification was created successfully.' });
     } catch (err) {
-        res.status(400).json({ message: err });
+        return res.status(400).json({ message: err });
     }
 };

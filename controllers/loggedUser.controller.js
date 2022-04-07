@@ -17,8 +17,8 @@ exports.findUserInfo = async (req, res) => {
             where: { email: req.user.data.email }
         });
         if (user === null)
-            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
-        else res.status(200).json(user);
+            return res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+        else return res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ message: err.message || `Error retrieving user with email=${req.user.data.email}.` });
     }
@@ -28,9 +28,9 @@ exports.findUserInfo = async (req, res) => {
 exports.findUserLeaderBoard = async (req, res) => {
     try {
         const leaderboard = await db.sequelize.query('CALL GetleaderboardWithID ()');
-        res.status(200).json(leaderboard);
+        return res.status(200).json(leaderboard);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving leaderboard of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving leaderboard of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -45,9 +45,9 @@ exports.findUserBadgesLevel = async (req, res) => {
                 where: { email: req.user.data.email }
             }
         });
-        res.status(200).json(badges_level);
+        return res.status(200).json(badges_level);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving findUserBadgesLevel of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving findUserBadgesLevel of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -59,9 +59,9 @@ exports.findUserBadgesLeaderboard = async (req, res) => {
         const badges_leaderboard = await db.sequelize.query('CALL GetleaderboardBadges (:id_user)',
             { replacements: { id_user: user.id_user } })
 
-        res.status(200).json(badges_leaderboard);
+        return res.status(200).json(badges_leaderboard);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving badges_leaderboard of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving badges_leaderboard of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -74,9 +74,9 @@ exports.findUserBestBadgesLeaderboard = async (req, res) => {
         const best_badges_leaderboard = await db.sequelize.query('CALL GetleaderboardBestBadges (:id_user)',
             { replacements: { id_user: user.id_user } })
 
-        res.status(200).json(best_badges_leaderboard);
+        return res.status(200).json(best_badges_leaderboard);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving best_badges_leaderboard of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving best_badges_leaderboard of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -97,9 +97,9 @@ exports.findUserChallenges = async (req, res) => {
             ]
         });
         console.log(challenges);
-        res.status(200).json(challenges);
+        return res.status(200).json(challenges);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving challenges of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving challenges of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -123,9 +123,9 @@ exports.findUserChallengesCompleted = async (req, res) => {
                 model: ChallengeType
             }]
         });
-        res.status(200).json(challenges);
+        return res.status(200).json(challenges);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving completed challenges of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving completed challenges of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -141,9 +141,9 @@ exports.findUserNotifications = async (req, res) => {
 
             }
         });
-        res.status(200).json(notifications);
+        return res.status(200).json(notifications);
     } catch (err) {
-        res.status(500).json({ message: err.message || `Error retrieving findUserNotifications of user with email=${req.user.data.email}.` });
+        return res.status(500).json({ message: err.message || `Error retrieving findUserNotifications of user with email=${req.user.data.email}.` });
     }
 };
 
@@ -156,9 +156,9 @@ exports.updateUserInfo = async (req, res) => {
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         }
         User.update(req.body, { where: { id_user: user.id_user } });
-        res.status(200).json({ message: `User id_user = ${user.id_user} was updated successfully.` });
+        return res.status(200).json({ message: `User id_user = ${user.id_user} was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
     }
 };
 
@@ -172,13 +172,13 @@ exports.updatePassword = async (req, res) => {
         bcrypt.compare(req.body.password, user.password).then(function (result) {
             if (result) {
                 User.update({ password: bcrypt.hashSync(req.body.new_password, 8) }, { where: { id_user: user.id_user } });
-                res.status(200).json({ message: `User id_user = ${user.id_user} password was updated successfully.` });
+                return res.status(200).json({ message: `User id_user = ${user.id_user} password was updated successfully.` });
             } else {
                 res.status(401).send('Not Authorized');
             }
         });
     } catch (err) {
-        res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error updating password user with email=${req.user.data.email}` });
     }
 };
 
@@ -191,9 +191,9 @@ exports.updateMets = async (req, res) => {
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         }
         User.update({ mets: new_mets }, { where: { id_user: user.id_user } });
-        res.status(200).json({ message: `User id_user = ${user.id_user} mets was updated successfully.` });
+        return res.status(200).json({ message: `User id_user = ${user.id_user} mets was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: `Error updating mets user with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error updating mets user with email=${req.user.data.email}` });
     }
 };
 
@@ -202,7 +202,7 @@ exports.updateChallengesProgress = async (req, res) => {
     try {
         const user = await User.findOne({ where: { email: req.user.data.email } });
         if (user === null) {
-            res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
+            return res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         }
 
         const old_bicycle_time = await UserChallenge.findOne({ where: { [Op.and]: [{ id_challenge: 1 }, { id_user: user.id_user }] } });
@@ -255,9 +255,9 @@ exports.updateChallengesProgress = async (req, res) => {
         await UserChallenge.update({ progress: new_still_time }, { where: { [Op.and]: [{ id_challenge: 3 }, { id_user: user.id_user }] } });
         await UserChallenge.update({ progress: new_walking_time }, { where: { [Op.and]: [{ id_challenge: 4 }, { id_user: user.id_user }] } });
 
-        res.status(200).json({ message: `User id_user = ${user.id_user} challenges progress was updated successfully.` });
+        return res.status(200).json({ message: `User id_user = ${user.id_user} challenges progress was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: `Error updating challenges progress user with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error updating challenges progress user with email=${req.user.data.email}` });
     }
 };
 
@@ -269,9 +269,9 @@ exports.updatePicture = async (req, res) => {
             res.status(404).json({ message: `Not found user with email=${req.user.data.email}.` });
         }
         User.update(req.body, { where: { id_user: user.id_user } });
-        res.status(200).json({ message: `User id_user = ${user.id_user} picture was updated successfully.` });
+        return res.status(200).json({ message: `User id_user = ${user.id_user} picture was updated successfully.` });
     } catch (err) {
-        res.status(500).json({ message: `Error picture password user with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error picture password user with email=${req.user.data.email}` });
     }
 };
 
@@ -285,6 +285,6 @@ exports.deleteAccount = async (req, res) => {
         user.destroy();
         return res.status(200).json({ message: `Deleted user with id_user=${req.user.data.email}.` });
     } catch (err) {
-        res.status(500).json({ message: `Error delete user account with email=${req.user.data.email}` });
+        return res.status(500).json({ message: `Error delete user account with email=${req.user.data.email}` });
     }
 };
