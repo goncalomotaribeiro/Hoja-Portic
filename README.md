@@ -10,4 +10,4 @@ npm i
 * It has authentication, using OAUTH 2.0 and JWT.
 * Code published on GitHub: https://github.com/goncalomotaribeiro/Hoja-Portic
 * Web Service deploy to the Cloud through Heroku: https://hoja-portic.herokuapp.com
-* Web Service documentation on Swagger: https://hoja-portic.herokuapp.com/api-docs
+* Web Service documentation on Swagger: https://hoja-portic.herokuapp.com/api-docs 
